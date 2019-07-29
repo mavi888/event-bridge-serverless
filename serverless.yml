@@ -1,0 +1,21 @@
+service: event-bridge-serverless
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "events:PutEvents"
+      Resource: "*"
+
+functions:
+  alice:
+    handler: handler.alice
+    events:
+      - http:
+          method: GET
+          path: alice
+  bob:
+    handler: handler.bob
